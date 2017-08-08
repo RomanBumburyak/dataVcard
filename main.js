@@ -1,4 +1,4 @@
-let octo = {
+let data = {
   "login": "octocat",
   "id": 1,
   "avatar_url": "https://github.com/images/error/octocat_happy.gif",
@@ -31,21 +31,37 @@ let octo = {
   "updated_at": "2008-01-14T04:33:35Z"
 }
 
- 
 
 
 
 
 
 
-function reqListener () {
-  console.log(this.responseText);
+
+let request = new XMLHttpRequest();
+request.addEventListener("load", updateCard);
+request.open('GET', 'https://api.github.com/users/romanbumburyak');
+request.send();
+
+// Our display function
+function updateCard () {
+  // Parse our response text
+  let data = JSON.parse(this.responseText);
+  console.log("this is running");
+  let name = data.name;
+  let gitHubUrl = data.url;
+  let email = data.email;
+  let company = data.company;
+  let website = data.html_url;
 }
 
-let req = new XMLHttpRequest();
-req.open("GET", "https://api.github.com/");
-req.addEventListener("load", reqListener);
-// req.send();
+
+
+
+document.querySelector(".something").innerHTML= `${data.name}`;
+
+
+
 
 
 // // COPIED FROM HW
